@@ -10,6 +10,22 @@ class FilterableMovieTable extends Component {
       filterText: '',
       seenOnly: false
     };
+
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleSeenOnlyChange = this.handleSeenOnlyChange.bind(this);
+
+  }
+
+  handleFilterTextChange(filterText) {
+    this.setState({
+      filterText: filterText
+    })
+  }
+
+  handleSeenOnlyChange(seenOnly) {
+    this.setState({
+      seenOnly: seenOnly
+    })
   }
   
   render() {
@@ -18,6 +34,8 @@ class FilterableMovieTable extends Component {
         <SearchBar
         filterText={this.state.filterText}
         seenOnly={this.state.seenOnly}
+        onFilterTextChange={this.handleFilterTextChange}
+        onSeenOnlyChange={this.handleSeenOnlyChange}
         />
         <MovieTable
         movies={this.props.movies}
