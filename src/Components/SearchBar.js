@@ -17,9 +17,6 @@ class SearchBar extends Component {
   }
 
   render() {
-    // const filterText = this.props.filterText;
-    // const seenOnly = this.props.seenOnly;
-
     return (
       <form>
         <input type="text" 

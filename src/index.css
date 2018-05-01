@@ -1,7 +1,9 @@
-
-
 body {
   font-family: Futura, sans-serif;
   font-size: 14px;
   margin: 20px;
+}
+
+td {
+  padding: 10px;
 }

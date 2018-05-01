@@ -12,10 +12,14 @@ class MovieRow extends Component {
 
     return (
       <tr>
-        <td>{movie.orderNum}</td>
+        <td>{movie.position}</td>
         <td>{movieTitle}</td>
         <td>{seenMovie}</td>
         <td><a href="{movie.infoLink}">Link</a></td>
+        <td><button>Up</button></td>
+        <td><button>Down</button></td>
+        <td><button>Edit</button></td>
+        <td><button>Remove</button></td>
       </tr>
     );
   }
