@@ -8,8 +8,16 @@ class FilterableMovieTable extends Component {
     super(props);
     this.state = {
       filterText: '',
-      seenOnly: false
-    };
+      seenOnly: false,
+      movies: [
+        {id: 0, movieTitle: 'Top Gun', seen: true, infoLink: '#', position: 1},
+        {id: 1, movieTitle: 'When Harry Met Sally', seen: true, infoLink: '#', position: 2},
+        {id: 2, movieTitle: 'Notting Hill', seen: true, infoLink: '#', position: 4},
+        {id: 3, movieTitle: 'Atonement', seen: true, infoLink: '#', position: 5},
+        {id: 4, movieTitle: 'Fight Club', seen: true, infoLink: '#', position: 6},
+        {id: 5, movieTitle: 'Pulp Fiction', seen: false, infoLink: '#', position: 3}
+      ]
+    }
 
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleSeenOnlyChange = this.handleSeenOnlyChange.bind(this);
@@ -27,6 +35,12 @@ class FilterableMovieTable extends Component {
       seenOnly: seenOnly
     })
   }
+
+  handleOnDelete(idd) {
+    this.setState(prevState => ({
+        movies: prevState.movies.filter( movie => movie.id !== idd )
+    }));
+  }
   
   render() {
     return (
@@ -38,9 +52,10 @@ class FilterableMovieTable extends Component {
         onSeenOnlyChange={this.handleSeenOnlyChange}
         />
         <MovieTable
-        movies={this.props.movies}
+        movies={this.state.movies}
         filterText={this.state.filterText}
         seenOnly={this.state.seenOnly}
+        onDelete={this.handleOnDelete.bind(this)}
         />
       </div>
     );

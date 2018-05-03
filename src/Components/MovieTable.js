@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import MovieRow from "./MovieRow.js";
 
 class MovieTable extends Component {
+  
+  deleteMovie(id) {
+      this.props.onDelete(id);
+  }
+
+
   render() {
     const filterText = this.props.filterText;
     const seenOnly = this.props.seenOnly;
@@ -17,8 +23,9 @@ class MovieTable extends Component {
       }
       rows.push(
         <MovieRow
+        onDelete={this.deleteMovie.bind(this)} 
         movie={movie}
-        key={movie.movieTitle} />
+        key={movie.id} />
       );
     });
 
@@ -26,11 +33,9 @@ class MovieTable extends Component {
     <table>
       <thead>
         <tr>
-            <th>No.</th>
-            <th>Movie</th>
-            <th>Seen</th>
-            <th>Info</th>
-            <th colSpan="4">Move/Edit</th>
+          <th>No.</th>
+          <th>Movie</th>
+          <th>Seen</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
