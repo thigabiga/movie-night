@@ -9,11 +9,6 @@ class MovieForm extends Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
   }
 
-  addMovie1(title, seenIt) {
-    this.preventDefault();
-    this.props.onAdd(title, seenIt);
-  }
-
   addMovie(event) {
     event.preventDefault();
     this.props.onAdd(this.props.newMovieTitle, this.props.seenIt);

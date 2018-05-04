@@ -19,7 +19,8 @@ class FilterableMovieTable extends Component {
         {id: 5, movieTitle: 'Pulp Fiction', seen: false, infoLink: '#', position: 3}
       ],
       newMovieTitle: '',
-      seenIt: false
+      seenIt: false,
+      editId: null
     }
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleSeenItChange = this.handleSeenItChange.bind(this);
@@ -51,12 +52,6 @@ class FilterableMovieTable extends Component {
     })
   }
 
-  handleOnDelete(idd) {
-    this.setState(prevState => ({
-      movies: prevState.movies.filter( movie => movie.id !== idd )
-    }));
-  }
-
   handleAddMovie(title, seenIt) {
     const newId = getNextID(this.state.movies);
     const newPosition = getNextPosition(this.state.movies);
@@ -66,6 +61,18 @@ class FilterableMovieTable extends Component {
       newMovieTitle: '',
       seenIt: false
     }));
+  }
+
+  handleOnDelete(idd) {
+    this.setState(prevState => ({
+      movies: prevState.movies.filter( movie => movie.id !== idd )
+    }));
+  }
+
+  handleOnEdit(idd) {
+    this.setState(prevState => ({
+      movies: prevState.movies
+    }))
   }
   
   render() {

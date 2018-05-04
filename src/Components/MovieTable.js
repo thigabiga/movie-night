@@ -7,6 +7,9 @@ class MovieTable extends Component {
       this.props.onDelete(id);
   }
 
+  editMovie(id) {
+    this.props.onEdit(id);
+  }
 
   render() {
     const filterText = this.props.filterText;
@@ -21,16 +24,28 @@ class MovieTable extends Component {
       if (seenOnly && !movie.seen) {
         return;
       }
-      rows.push(
-        <MovieRow
-        onDelete={this.deleteMovie.bind(this)} 
-        movie={movie}
-        key={movie.id} />
-      );
+      if (this.props.editId == movie.id) {
+        rows.push(
+          <EditMovieRow
+          onCancelEdit={this.cancelEdit.bind(this)}
+          onPositionEdit={this.editPosition.bind(this)}
+          onTitleEdit={this.editTitle.bind(this)}
+          onSeenItEdit={this.editSeenIt.bind(this)}
+          movie={movie}
+          key={movie.id} />
+        );
+      } else {
+        rows.push(
+          <MovieRow
+          onDelete={this.deleteMovie.bind(this)} 
+          movie={movie}
+          key={movie.id} />
+        );
+      }
     });
 
     return (
-    <table class="movie-table">
+    <table className="movie-table">
       <thead>
         <tr>
           <th>No.</th>
