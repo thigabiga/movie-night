@@ -7,10 +7,6 @@ class MovieForm extends Component {
     super();
     this.handleSeenItChange = this.handleSeenItChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    // this.state = {
-    //   newMovieTitle: "",
-    //   newSeenIt: null
-    // }
   }
 
   addMovie1(title, seenIt) {
@@ -23,10 +19,6 @@ class MovieForm extends Component {
     this.props.onAdd(this.props.newMovieTitle, this.props.seenIt);
   }
 
-  // handleChange(event) {
-  //   this.setState({newSeenIt: event.target.value});
-  // }
-
   handleTitleChange(e) {
     this.props.onTitleChange(e.target.value);
   }
@@ -36,8 +28,6 @@ class MovieForm extends Component {
   }
 
   render() {
-    const newMovieTitle = this.props.newMovieTitle;
-    const seenIt = this.props.seenIt;
     return (
       <div>
         <form onSubmit={this.addMovie.bind(this)}>
@@ -54,9 +44,6 @@ class MovieForm extends Component {
           Seen it.
           <button type="submit">Save</button>
         </form>
-
-
-        
       </div>
     )
   }
