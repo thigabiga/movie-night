@@ -18,7 +18,7 @@ class MovieRow extends Component {
     return (
       <tr>
         <td>{movie.position}</td>
-        <td><a href="{movie.infoLink}">{movieTitle}</a></td>
+        <td><a href="{movie.infoLink}" target="_blank">{movieTitle}</a></td>
         <td>{seenMovie}</td>
         <td><button>Edit</button></td>
         <td><button onClick={this.deleteMovie.bind(this, this.props.movie.id)}>Remove</button></td>

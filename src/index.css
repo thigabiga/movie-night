@@ -1,4 +1,5 @@
 body {
+  color: black;
   font-family: Futura, sans-serif;
   font-size: 14px;
   margin: 20px;
@@ -6,4 +7,16 @@ body {
 
 td {
   padding: 10px;
+}
+
+a:visited {
+  color: inherit;
+}
+
+.movie-table {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
 }

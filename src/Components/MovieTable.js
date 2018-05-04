@@ -30,7 +30,7 @@ class MovieTable extends Component {
     });
 
     return (
-    <table>
+    <table class="movie-table">
       <thead>
         <tr>
           <th>No.</th>
