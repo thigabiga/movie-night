@@ -18,11 +18,11 @@ class EditMovieRow extends Component {
 
   saveEdit(event) {
     event.preventDefault();
-    this.props.saveEdit(this.props.editMovieTitle, this.props.newPosition, this.props.editSeenIt);
+    console.log(this, this.editMovieTitle, this.newPosition, this.editSeenIt);
+    this.props.saveEdit(this.editMovieTitle, this.newPosition, this.editSeenIt);
   }
 
   handlePositionChange(e) {
-    console.log(e.target.value);
     this.props.onPositionChange(e.target.value);
   }
 

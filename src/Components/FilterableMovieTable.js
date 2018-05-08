@@ -107,12 +107,13 @@ class FilterableMovieTable extends Component {
     }));
   }
 
-  handleSaveEdit(idd, title, seenIt, newPosition) {
-    const newList = changePosition(this.state.movies, newPosition);
-    const newObj = {id: idd, movieTitle: title, seen: seenIt, infoLink: '#', position: newPosition};
-    this.setState(prevState => ({
-      movies: prevState.movies.filter( movie => movie.id !== idd ).concat(newObj)
-    }));
+  handleSaveEdit(idd, position, title, seen) {
+    console.log(idd, position, title, seen)
+    // const newList = changePosition(this.state.movies, newPosition);
+    // const newObj = {id: idd, movieTitle: title, seen: seenIt, infoLink: '#', position: newPosition};
+    // this.setState(prevState => ({
+    //   movies: prevState.movies.filter( movie => movie.id !== idd ).concat(newObj)
+    // }));
   }
   
   render() {

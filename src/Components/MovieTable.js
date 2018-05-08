@@ -21,9 +21,10 @@ class MovieTable extends Component {
     this.props.onCancelEdit();
   }
 
-  saveEdit(event) {
+  saveEdit(title, position, seen) {
     // event.preventDefault();
-    this.props.onSaveEdit(this.props.editMovieTitle, this.props.newPosition, this.props.seenIt);
+    console.log(title, position, seen, this);
+    this.props.onSaveEdit(this.key, position, title, seen);
   }
 
   handlePositionChange(e) {
