@@ -37,36 +37,30 @@ class EditMovieRow extends Component {
     //   </span>;
 
     return (
-      <form onSubmit={this.saveEdit.bind(this)}>
-        <tr>
-          <td>
+      <tr><td colSpan="5">
+        <form onSubmit={this.saveEdit.bind(this)}>
             <input 
             type="text" 
             placeholder={movie.position} 
             value={this.props.newPosition} 
             onChange={this.handlePositionEdit} 
             />
-          </td>
-          <td>
             <input
             type="text"
             placeholder={movieTitle}
             value={this.props.newMovieTitle}
             onChange={this.handleTitleEdit}
             />
-          </td>
-          <td>
             <input
             type="checkbox"
             placeholder={movieTitle}
             checked={this.props.seenIt}
             onChange={this.handleSeenItEdit}
             />
-          </td>
-          <td><button type="submit">Save</button></td>
-          <td><button onClick={this.cancelEdit.bind(this)}>Cancel</button></td>
-        </tr>
-      </form>
+          <button type="submit">Save</button>
+          <button onClick={this.cancelEdit.bind(this)}>Cancel</button>
+          </form>
+        </td></tr>
     );
   }
 }

@@ -20,12 +20,33 @@ class FilterableMovieTable extends Component {
       ],
       newMovieTitle: '',
       seenIt: false,
-      editId: null
+      editId: null,
+      newPosition: null
     }
+    this.handleCancelEdit = this.handleCancelEdit.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleSeenItChange = this.handleSeenItChange.bind(this);
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleSeenOnlyChange = this.handleSeenOnlyChange.bind(this);
+  }
+
+  handleCancelEdit() {
+    this.setState({
+      editId: null
+    })
+  }
+
+  handleOnEdit(idd) {
+    this.setState({
+      editId: idd
+    })
+  }
+
+  handlePositionChange(newPosition) {
+    this.setState({
+      newPosition: newPosition
+    })
   }
 
   handleTitleChange(newTitle) {
@@ -69,10 +90,12 @@ class FilterableMovieTable extends Component {
     }));
   }
 
-  handleOnEdit(idd) {
+  handleOnSaveEdit(idd, title, seenIt, newPosition) {
+    const newList = changePosition(this.state.movies, newPosition);
+    const newObj = {id: idd, movieTitle: title, seen: seenIt, infoLink: '#', position: newPosition};
     this.setState(prevState => ({
-      movies: prevState.movies
-    }))
+      movies: prevState.movies.filter( movie => movie.id !== idd ).concat(newObj)
+    }));
   }
   
   render() {
@@ -88,6 +111,12 @@ class FilterableMovieTable extends Component {
         movies={this.state.movies}
         filterText={this.state.filterText}
         seenOnly={this.state.seenOnly}
+        editId={this.state.editId}
+        seenIt={this.state.seenit}
+        onEdit={this.handleOnEdit.bind(this)}
+        onCancelEdit={this.handleCancelEdit}
+        onPositionChange={this.handlePositionChange}
+        onSaveEdit={this.handleOnSaveEdit}
         onDelete={this.handleOnDelete.bind(this)}
         />
         <MovieForm 
@@ -95,7 +124,8 @@ class FilterableMovieTable extends Component {
         seenIt={this.state.seenIt}
         onSeenItChange={this.handleSeenItChange}
         onTitleChange={this.handleTitleChange}
-        onAdd={this.handleAddMovie.bind(this)} />
+        onAdd={this.handleAddMovie.bind(this)}
+        />
       </div>
     );
   }

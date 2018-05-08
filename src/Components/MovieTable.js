@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import MovieRow from "./MovieRow.js";
+import EditMovieRow from "./EditMovieRow.js";
 
 class MovieTable extends Component {
   
@@ -10,6 +11,9 @@ class MovieTable extends Component {
   editMovie(id) {
     this.props.onEdit(id);
   }
+
+
+  
 
   render() {
     const filterText = this.props.filterText;
@@ -24,19 +28,20 @@ class MovieTable extends Component {
       if (seenOnly && !movie.seen) {
         return;
       }
-      if (this.props.editId == movie.id) {
+      if (this.props.editId === movie.id) {
         rows.push(
           <EditMovieRow
-          onCancelEdit={this.cancelEdit.bind(this)}
-          onPositionEdit={this.editPosition.bind(this)}
-          onTitleEdit={this.editTitle.bind(this)}
-          onSeenItEdit={this.editSeenIt.bind(this)}
+          onCancelEdit={this.cancelEdit}
+          onPositionEdit={this.editPosition}
+          onTitleEdit={this.editTitle}
+          onSeenItEdit={this.editSeenIt}
           movie={movie}
           key={movie.id} />
         );
       } else {
         rows.push(
           <MovieRow
+          onEdit={this.editMovie.bind(this)}
           onDelete={this.deleteMovie.bind(this)} 
           movie={movie}
           key={movie.id} />
