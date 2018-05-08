@@ -19,16 +19,21 @@ class FilterableMovieTable extends Component {
         {id: 5, movieTitle: 'Pulp Fiction', seen: false, infoLink: '#', position: 3}
       ],
       newMovieTitle: '',
+      editMovieTitle: '',
       seenIt: false,
+      editSeenIt: false,
       editId: null,
-      newPosition: null
+      newPosition: undefined
     }
+    this.handleSaveEdit = this.handleSaveEdit.bind(this);
     this.handleCancelEdit = this.handleCancelEdit.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleSeenItChange = this.handleSeenItChange.bind(this);
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleSeenOnlyChange = this.handleSeenOnlyChange.bind(this);
+    this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
+    this.handleEditSeenItChange = this.handleEditSeenItChange.bind(this);
   }
 
   handleCancelEdit() {
@@ -55,9 +60,21 @@ class FilterableMovieTable extends Component {
     })
   }
 
+  handleEditTitleChange(newTitle) {
+    this.setState({
+      editMovieTitle: newTitle
+    })
+  }
+
   handleSeenItChange(seenIt) {
     this.setState({
       seenIt: seenIt
+    })
+  }
+
+  handleEditSeenItChange(seenIt) {
+    this.setState({
+      editSeenIt: seenIt
     })
   }
 
@@ -90,7 +107,7 @@ class FilterableMovieTable extends Component {
     }));
   }
 
-  handleOnSaveEdit(idd, title, seenIt, newPosition) {
+  handleSaveEdit(idd, title, seenIt, newPosition) {
     const newList = changePosition(this.state.movies, newPosition);
     const newObj = {id: idd, movieTitle: title, seen: seenIt, infoLink: '#', position: newPosition};
     this.setState(prevState => ({
@@ -112,11 +129,15 @@ class FilterableMovieTable extends Component {
         filterText={this.state.filterText}
         seenOnly={this.state.seenOnly}
         editId={this.state.editId}
-        seenIt={this.state.seenit}
+        editSeenIt={this.state.editSeenit}
+        editMovieTitle={this.state.editMovieTitle}
+        newPosition={this.state.newPosition}
         onEdit={this.handleOnEdit.bind(this)}
         onCancelEdit={this.handleCancelEdit}
         onPositionChange={this.handlePositionChange}
-        onSaveEdit={this.handleOnSaveEdit}
+        onSaveEdit={this.handleSaveEdit}
+        onEditTitleChange={this.handleEditTitleChange}
+        onEditSeenItChange={this.handleEditSeenItChange}
         onDelete={this.handleOnDelete.bind(this)}
         />
         <MovieForm 

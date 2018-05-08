@@ -4,61 +4,65 @@ class EditMovieRow extends Component {
 
   constructor(props) {
     super();
-    this.handleSeenItEdit = this.handleSeenItEdit.bind(this);
-    this.handleTitleEdit = this.handleTitleEdit.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this);
+    this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
+    this.handleEditSeenItChange = this.handleEditSeenItChange.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
   }
 
   cancelEdit(event) {
     event.preventDefault();
-    this.props.onCancelEdit();
+    this.props.cancelEdit();
   }
 
   saveEdit(event) {
     event.preventDefault();
-    this.props.onEdit(this.props.newMovieTitle, this.props.newPosition, this.props.seenIt);
+    this.props.saveEdit(this.props.editMovieTitle, this.props.newPosition, this.props.editSeenIt);
   }
 
-  handleTitleEdit(e) {
-    this.props.onTitleEdit(e.target.value);
+  handlePositionChange(e) {
+    console.log(e.target.value);
+    this.props.onPositionChange(e.target.value);
   }
 
-  handleSeenItEdit(e) {
-    this.props.onSeenItEdit(e.target.checked);
+  handleEditTitleChange(e) {
+    this.props.onEditTitleChange(e.target.value);
+  }
+
+  handleEditSeenItChange(e) {
+    this.props.onEditSeenItChange(e.target.checked);
   }
 
   render() {
     const movie = this.props.movie;
-    const seenMovie = String(movie.seen);
+    // const seenMovie = String(movie.seen);
     const movieTitle = movie.movieTitle;
-    // const movieTitle = movie.seen ?
-    // movie.movieTitle :
-    //   <span style={{color: 'red'}}>
-    //     {movie.movieTitle}
-    //   </span>;
 
     return (
       <tr><td colSpan="5">
-        <form onSubmit={this.saveEdit.bind(this)}>
+        <form onSubmit={this.saveEdit}>
             <input 
             type="text" 
             placeholder={movie.position} 
-            value={this.props.newPosition} 
-            onChange={this.handlePositionEdit} 
+            value={this.newPosition} 
+            onChange={this.handlePositionChange} 
             />
             <input
             type="text"
             placeholder={movieTitle}
-            value={this.props.newMovieTitle}
-            onChange={this.handleTitleEdit}
+            value={this.editMovieTitle}
+            onChange={this.handleEditTitleChange}
             />
             <input
             type="checkbox"
             placeholder={movieTitle}
-            checked={this.props.seenIt}
-            onChange={this.handleSeenItEdit}
+            checked={this.editSeenIt}
+            onChange={this.handleEditSeenItChange}
             />
+            {' '}
           <button type="submit">Save</button>
-          <button onClick={this.cancelEdit.bind(this)}>Cancel</button>
+          <button onClick={this.cancelEdit}>Cancel</button>
           </form>
         </td></tr>
     );

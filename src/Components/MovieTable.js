@@ -3,6 +3,48 @@ import MovieRow from "./MovieRow.js";
 import EditMovieRow from "./EditMovieRow.js";
 
 class MovieTable extends Component {
+
+
+  constructor(props) {
+    super();
+    this.handlePositionChange = this.handlePositionChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleSeenItChange = this.handleSeenItChange.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
+    this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
+    this.handleEditSeenItChange = this.handleEditSeenItChange.bind(this);
+  }
+
+  cancelEdit(event) {
+    // event.preventDefault();
+    this.props.onCancelEdit();
+  }
+
+  saveEdit(event) {
+    // event.preventDefault();
+    this.props.onSaveEdit(this.props.editMovieTitle, this.props.newPosition, this.props.seenIt);
+  }
+
+  handlePositionChange(e) {
+    this.props.onPositionChange(e);
+  }
+
+  handleTitleChange(e) {
+    this.props.onTitleChange(e);
+  }
+
+  handleSeenItChange(e) {
+    this.props.onSeenItChange(e);
+  }
+
+  handleEditTitleChange(e) {
+    this.props.onEditTitleChange(e);
+  }
+
+  handleEditSeenItChange(e) {
+    this.props.onEditSeenItChange(e);
+  }
   
   deleteMovie(id) {
       this.props.onDelete(id);
@@ -11,9 +53,6 @@ class MovieTable extends Component {
   editMovie(id) {
     this.props.onEdit(id);
   }
-
-
-  
 
   render() {
     const filterText = this.props.filterText;
@@ -31,10 +70,17 @@ class MovieTable extends Component {
       if (this.props.editId === movie.id) {
         rows.push(
           <EditMovieRow
-          onCancelEdit={this.cancelEdit}
-          onPositionEdit={this.editPosition}
-          onTitleEdit={this.editTitle}
-          onSeenItEdit={this.editSeenIt}
+
+          editId={this.props.editId}
+          editSeenIt={this.props.editSeenIt}
+          editMovieTitle={this.props.editMovieTitle}
+          newPosition={this.props.newPosition}
+
+          cancelEdit={this.cancelEdit}
+          saveEdit={this.saveEdit}
+          onPositionChange={this.handlePositionChange}
+          onEditTitleChange={this.handleEditTitleChange}
+          onEditSeenItChange={this.handleEditSeenItChange}
           movie={movie}
           key={movie.id} />
         );
