@@ -66,16 +66,22 @@ class FilterableMovieTable extends Component {
     })
   }
 
-  handleSeenItChange(seenIt) {
-    this.setState({
-      seenIt: seenIt
+  handleEditSeenItChange(idd) {
+    console.log(idd);
+    
+    const newMovieList = this.state.movies.map( (e) => {
+      if (e.id === idd) {
+        let newE = e;
+        newE.id = idd;
+        return newE;
+      } else {
+        return e;
+      }
     })
-  }
 
-  handleEditSeenItChange(seenIt) {
-    this.setState({
-      editSeenIt: seenIt
-    })
+    this.setState(prevState => ({
+      movies: newMovieList
+    }));
   }
 
   handleFilterTextChange(filterText) {
@@ -105,6 +111,12 @@ class FilterableMovieTable extends Component {
     this.setState(prevState => ({
       movies: prevState.movies.filter( movie => movie.id !== idd )
     }));
+  }
+
+  handleSeenItChange(seenIt) {
+    this.setState({
+      seenIt: seenIt
+    })
   }
 
   handleSaveEdit(idd, position, title, seen) {

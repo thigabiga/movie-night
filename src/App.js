@@ -1,10 +1,8 @@
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 // STYLES
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 
 // COMPONENTS
 import BottomNav from "./Components/BottomNav.js";
@@ -17,34 +15,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
         <MuiThemeProvider>
-          <AppBar title="Movie Night" />
-          
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/browse" component={Browse} />
+              <Route path="/library" component={FilterableMovieTable} />
+              <Route path="/*" component={NotFound} />
+            </Switch>
+            <BottomNav />
+          </div>
         </MuiThemeProvider>
-
-          <p>
-            <Link to="/">Home</Link>
-          </p>
-          <p>
-            <Link to="/browse">Browse</Link>
-          </p>
-          <p>
-            <Link to="/lists">Lists</Link>
-          </p>
-
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/browse" component={Browse} />
-            <MuiThemeProvider><Route path="/lists" component={FilterableMovieTable} /></MuiThemeProvider>
-            <Route path="/*" component={NotFound} />
-          </Switch>
-
-        <MuiThemeProvider>
-          <BottomNav />
-        </MuiThemeProvider>
-
-        </div>
       </Router>
     );
   }

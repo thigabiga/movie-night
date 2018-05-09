@@ -1,4 +1,15 @@
 import React, {Component} from 'react';
+
+// STYLES
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+} from 'material-ui/Table';
+
+// COMPONENTS
 import MovieRow from "./MovieRow.js";
 import EditMovieRow from "./EditMovieRow.js";
 
@@ -43,8 +54,8 @@ class MovieTable extends Component {
     this.props.onEditTitleChange(e);
   }
 
-  handleEditSeenItChange(e) {
-    this.props.onEditSeenItChange(e);
+  handleEditSeenItChange(id) {
+    this.props.onEditSeenItChange(id);
   }
   
   deleteMovie(id) {
@@ -88,7 +99,7 @@ class MovieTable extends Component {
       } else {
         rows.push(
           <MovieRow
-          onEdit={this.editMovie.bind(this)}
+          onEditSeenItChange={this.handleEditSeenItChange}
           onDelete={this.deleteMovie.bind(this)} 
           movie={movie}
           key={movie.id} />
@@ -97,16 +108,17 @@ class MovieTable extends Component {
     });
 
     return (
-    <table className="movie-table">
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Movie</th>
-          <th>Seen</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <Table>
+      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+        <TableRow>
+          <TableHeaderColumn>No.</TableHeaderColumn>
+          <TableHeaderColumn>Movie</TableHeaderColumn>
+          <TableHeaderColumn>Seen</TableHeaderColumn>
+          <TableHeaderColumn>Delete</TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody>{rows}</TableBody>
+    </Table>
     );
   }
 }
