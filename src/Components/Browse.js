@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
+import RecommendedMovies from "./RecommendedMovies.js";
+
+import AppBar from 'material-ui/AppBar';
 
 class Browse extends Component {
-    render() {
+  render() {
 
     return (
-        <div>Browse</div>
+      <div>
+        <AppBar title="Browse Movies" showMenuIconButton={false} />
+        <RecommendedMovies />
+      </div>
     )
-}
+  }
 }
 
 export default Browse;

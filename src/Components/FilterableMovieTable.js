@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SearchBar from "./SearchBar.js";
 import MovieTable from "./MovieTable.js";
-import MovieForm from "./MovieForm.js";
+// import MovieForm from "./MovieForm.js";
 
 class FilterableMovieTable extends Component {
   

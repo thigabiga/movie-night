@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
 
 // STYLES
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-} from 'material-ui/Table';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
 
 // COMPONENTS
 import MovieRow from "./MovieRow.js";
-import EditMovieRow from "./EditMovieRow.js";
+// import EditMovieRow from "./EditMovieRow.js";
 
 class MovieTable extends Component {
 
