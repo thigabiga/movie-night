@@ -67,20 +67,16 @@ class FilterableMovieTable extends Component {
   }
 
   handleEditSeenItChange(idd) {
-    console.log(idd);
-    
-    const newMovieList = this.state.movies.map( (e) => {
-      if (e.id === idd) {
-        let newE = e;
-        newE.id = idd;
-        return newE;
-      } else {
-        return e;
-      }
-    })
-
     this.setState(prevState => ({
-      movies: newMovieList
+      movies: prevState.movies.map( (e) => {
+        if (e.id === idd) {
+          let newE = e;
+          newE.seen = !e.seen;
+          return newE;
+        } else {
+          return e;
+        }
+      })
     }));
   }
 
@@ -153,13 +149,13 @@ class FilterableMovieTable extends Component {
         onEditSeenItChange={this.handleEditSeenItChange}
         onDelete={this.handleOnDelete.bind(this)}
         />
-        <MovieForm 
+        {/* <MovieForm 
         newMovieTitle={this.state.newMovieTitle}
         seenIt={this.state.seenIt}
         onSeenItChange={this.handleSeenItChange}
         onTitleChange={this.handleTitleChange}
         onAdd={this.handleAddMovie.bind(this)}
-        />
+        /> */}
       </div>
     );
   }

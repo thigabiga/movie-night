@@ -34,7 +34,6 @@ class MovieTable extends Component {
 
   saveEdit(title, position, seen) {
     // event.preventDefault();
-    console.log(title, position, seen, this);
     this.props.onSaveEdit(this.key, position, title, seen);
   }
 
@@ -79,32 +78,32 @@ class MovieTable extends Component {
       if (seenOnly && !movie.seen) {
         return;
       }
-      if (this.props.editId === movie.id) {
-        rows.push(
-          <EditMovieRow
+      // if (this.props.editId === movie.id) {
+      //   rows.push(
+      //     <EditMovieRow
 
-          editId={this.props.editId}
-          editSeenIt={this.props.editSeenIt}
-          editMovieTitle={this.props.editMovieTitle}
-          newPosition={this.props.newPosition}
+      //     editId={this.props.editId}
+      //     editSeenIt={this.props.editSeenIt}
+      //     editMovieTitle={this.props.editMovieTitle}
+      //     newPosition={this.props.newPosition}
 
-          cancelEdit={this.cancelEdit}
-          saveEdit={this.saveEdit}
-          onPositionChange={this.handlePositionChange}
-          onEditTitleChange={this.handleEditTitleChange}
-          onEditSeenItChange={this.handleEditSeenItChange}
-          movie={movie}
-          key={movie.id} />
+      //     cancelEdit={this.cancelEdit}
+      //     saveEdit={this.saveEdit}
+      //     onPositionChange={this.handlePositionChange}
+      //     onEditTitleChange={this.handleEditTitleChange}
+      //     onEditSeenItChange={this.handleEditSeenItChange}
+      //     movie={movie}
+      //     key={movie.id} />
+      //   );
+      // } else {
+      rows.push(
+        <MovieRow
+        onEditSeenItChange={this.handleEditSeenItChange}
+        onDelete={this.deleteMovie.bind(this)} 
+        movie={movie}
+        key={movie.id} />
         );
-      } else {
-        rows.push(
-          <MovieRow
-          onEditSeenItChange={this.handleEditSeenItChange}
-          onDelete={this.deleteMovie.bind(this)} 
-          movie={movie}
-          key={movie.id} />
-        );
-      }
+    //   }
     });
 
     return (

@@ -11,7 +11,6 @@ const avatarIcon = <FontIcon className="material-icons">person</FontIcon>;
 
 class Home extends Component {
   render() {
-
     return (
       <div>
         <AppBar title="Movie Night" showMenuIconButton={false} />

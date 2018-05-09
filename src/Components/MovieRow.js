@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 
+// STYLES
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
+// ICONS
 const deleteIcon = <FontIcon className="material-icons">delete</FontIcon>;
 const checkIcon = <FontIcon className="material-icons">check_circle</FontIcon>;
+const emptyCheckIcon = <FontIcon className="material-icons">check_circle_outline</FontIcon>;
 
 class MovieRow extends Component {
 
@@ -24,7 +27,7 @@ class MovieRow extends Component {
 
   render() {
     const movie = this.props.movie;
-    const seenMovie = String(movie.seen);
+    // const seenMovie = String(movie.seen);
 
     const seenIcon = movie.seen ?
       <IconButton
@@ -37,19 +40,18 @@ class MovieRow extends Component {
         tooltip="mark seen"
         tooltipPosition="top-center"
         onClick={this.handleEditSeenItChange}
-        disabled={true}
-      >{checkIcon}</IconButton>;
+      >{emptyCheckIcon}</IconButton>;
 
-    const movieTitle = movie.seen ?
-    movie.movieTitle :
-      <span style={{color: 'red'}}>
-        {movie.movieTitle}
-      </span>;
+    // const movieTitle = movie.seen ?
+    // movie.movieTitle :
+    //   <span style={{color: 'red'}}>
+    //     {movie.movieTitle}
+    //   </span>;
 
     return (
       <TableRow>
         <TableRowColumn>{movie.position}</TableRowColumn>
-        <TableRowColumn><a href="{movie.infoLink}" target="_blank">{movieTitle}</a></TableRowColumn>
+        <TableRowColumn><a href="{movie.infoLink}" target="_blank">{movie.movieTitle}</a></TableRowColumn>
         <TableRowColumn>{seenIcon}</TableRowColumn>
         <TableRowColumn>
           <IconButton
