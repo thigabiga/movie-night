@@ -16,9 +16,13 @@ class RecommendedMovies extends Component {
     this.state = {
       movies: [],
       moviesOnLists: { 
-          "12cfb892-aac0-4c5b-94af-521852e46d6a": [{key: 1, label: "favorites"}],
-          "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [{key: 1, label: "favorites"}]
+        "12cfb892-aac0-4c5b-94af-521852e46d6a": [{key: 1, label: "favorites"}],
+        "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [{key: 1, label: "favorites"}]
         }
+      allOfMyLists: {
+        1: "favorites",
+        2: "to-watch"
+      }
     }
   }
 
