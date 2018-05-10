@@ -8,6 +8,11 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 const store = configureStore();
 
+// import {addMovieToList, deleteMovieFromList} from "./actions/actions.js";
+
+// store.dispatch(addMovieToList());
+// store.dispatch(deleteMovieFromList());
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
