@@ -17,7 +17,7 @@ function listReducer(state = initialState, action) {
         lists: state.lists.map((list, movieId, listKey) => {
           if (list.key === listKey && !list.movieIds.includes(movieId)) {
             let newList = list;
-            newList.movieIds = list.movieIds.filter(id => id !== movieId);
+            newList.movieIds = list.movieIds.concat(movieId);
             return newList;
           } else {
             return list;
@@ -29,7 +29,7 @@ function listReducer(state = initialState, action) {
         lists: state.lists.map((list, movieId, listKey) => {
           if (list.key === listKey && list.movieIds.includes(movieId)) {
             let newList = list;
-            newList.movieIds = list.movieIds.concat(movieId);
+            newList.movieIds = list.movieIds.filter(id => id !== movieId);
             return newList;
           } else {
             return list;
