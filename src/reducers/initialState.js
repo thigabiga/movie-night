@@ -1,4 +1,4 @@
-import {ADD_MOVIE, DELETE_MOVIE} from "../actions/actions.js"
+// import {ADD_MOVIE, DELETE_MOVIE} from "../actions/actions.js"
 
 const initialState = {
   firstName: "Erin",

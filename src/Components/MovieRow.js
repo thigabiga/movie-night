@@ -27,7 +27,6 @@ class MovieRow extends Component {
 
   render() {
     const movie = this.props.movie;
-    // const seenMovie = String(movie.seen);
 
     const seenIcon = movie.seen ?
       <IconButton
@@ -41,12 +40,6 @@ class MovieRow extends Component {
         tooltipPosition="top-center"
         onClick={this.handleEditSeenItChange}
       >{emptyCheckIcon}</IconButton>;
-
-    // const movieTitle = movie.seen ?
-    // movie.movieTitle :
-    //   <span style={{color: 'red'}}>
-    //     {movie.movieTitle}
-    //   </span>;
 
     return (
       <TableRow>

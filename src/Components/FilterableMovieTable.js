@@ -184,20 +184,22 @@ function getNextPosition(listOfObjs) {
   return x + 1;
 };
 
-function changePosition(listOfObjs, newPosition) {
-  let newListOfObjs = []
-  listOfObjs.forEach( e => {
-    if (e.id < newPosition) {
-      newListOfObjs.push(e);
-    } else if (e.id === newPosition) {
-      let newObj = e;
-      newObj.id = newPosition;
-      newListOfObjs.push(newObj);
-    } else {
-      let newObj = e;
-      newObj.id = newPosition + 1;
-      newListOfObjs.push(newObj);
-    }
-  })
-  return newListOfObjs;
-};
+// DO NOT DELETE
+// haven't used this yet
+// function changePosition(listOfObjs, newPosition) {
+//   let newListOfObjs = []
+//   listOfObjs.forEach( e => {
+//     if (e.id < newPosition) {
+//       newListOfObjs.push(e);
+//     } else if (e.id === newPosition) {
+//       let newObj = e;
+//       newObj.id = newPosition;
+//       newListOfObjs.push(newObj);
+//     } else {
+//       let newObj = e;
+//       newObj.id = newPosition + 1;
+//       newListOfObjs.push(newObj);
+//     }
+//   })
+//   return newListOfObjs;
+// };

@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {addMovieToList, deleteMovieFromList} from "../actions/actions.js"
 
 // MATERIAL UI
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -49,7 +49,12 @@ class RecommendedMovies extends Component {
     // }))
   };
 
+  handleRequestAddMovie = (listKey, movieId) => {
+    this.props.onAddChip(movieId, listKey);
+  };
+
   render () {
+
     const moviesAndLists = this.state.moviesLoaded.map(movie => {
       let movieList = this.state.moviesOnLists[movie.id];
       if (movieList !== undefined) {
@@ -61,35 +66,34 @@ class RecommendedMovies extends Component {
       return movie;
     })
 
-
-
-    // const abridgedMovieList = {this.props.userMovies}.map(movie => {
-    //   let newObj = {};
-    //   newObj[movie.id] = movie.listKeys;
-    //   return newObj;
-    // })
+    const test = {}
+    this.props.userMovies.forEach( e => {
+      test[e.id] = e.listKeys;
+    })
   
-  
-  const renderMovies = this.state.moviesLoaded.map(movie => {
-    <Card key={movie.id}>
-      <CardTitle title={movie.title} subtitle={movie.director} />
-      <CardText>{movie.description}</CardText>
-      <CardText>Release Date: {movie.release_date}</CardText>
-      <CardActions>
-        <FlatButton label="Add to List" primary={true} />
-        <FlatButton label="More Info" />
-      </CardActions>
-      <CardText>
-        
-      </CardText>
-    </Card>
-  })
+    const renderMovies = this.state.moviesLoaded.map(movie => {
+      var newList = movie;
+      var listofkeys = test[movie.id];
+      var listData = [];
+      if (listofkeys !== undefined) {
+        listofkeys.forEach(e => {
+          this.props.userLists.forEach (f => {
+            if (e === f.key) {
+              listData = listData.concat(f);
+            }
+          })
+        })
+        newList.lists = listData;
+      }
+      return newList;
+    })
 
-
+    console.log(renderMovies);
 
     return (
       <div>
-        {moviesAndLists.map(movie =>
+
+        {renderMovies.map(movie =>
           <Card key={movie.id}>
             <CardMedia>
               <img src="images/nature-600-337.jpg" alt="" />
@@ -98,7 +102,35 @@ class RecommendedMovies extends Component {
             <CardText>{movie.description}</CardText>
             <CardText>Release Date: {movie.release_date}</CardText>
             <CardActions>
-              <FlatButton label="Add to List" primary={true} />
+              <FlatButton label="Mark As Seen" primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
+              <FlatButton label="Add To List" />
+              <FlatButton label="More Info" />
+            </CardActions>
+            <CardText>
+              {movie.lists ? movie.lists.map( x => 
+                <Chip
+                  key={x.key}
+                  onRequestDelete={() => this.handleRequestDelete(x.key, movie.id)}
+                >
+                  {x.label}
+                </Chip>
+              ) : <div></div>
+              }
+            </CardText>
+          </Card>
+        )}
+
+        {/* {moviesAndLists.map(movie =>
+          <Card key={movie.id}>
+            <CardMedia>
+              <img src="images/nature-600-337.jpg" alt="" />
+            </CardMedia>
+            <CardTitle title={movie.title} subtitle={movie.director} />
+            <CardText>{movie.description}</CardText>
+            <CardText>Release Date: {movie.release_date}</CardText>
+            <CardActions>
+              <FlatButton label="Mark As Seen" primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
+              <FlatButton label="Add To List" />
               <FlatButton label="More Info" />
             </CardActions>
             <CardText>
@@ -113,7 +145,7 @@ class RecommendedMovies extends Component {
               }
             </CardText>
           </Card>
-        )}
+        )} */}
         </div>
     )
   }
@@ -122,8 +154,8 @@ class RecommendedMovies extends Component {
 
 const mapStateToProps = state => {
   return {
-    userMovies: state.movies,
-    userLists: state.lists
+    userMovies: state.listReducer.movies,
+    userLists: state.listReducer.lists
     // currentDisplay: state.display
   }
 }
