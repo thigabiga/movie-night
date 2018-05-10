@@ -7,17 +7,18 @@ export const ADD_MOVIE = 'ADD_MOVIE';
 export const DELETE_MOVIE = 'DELETE_MOVIE';
 
 export function addMovieToList(movieId, listKey) {
-    return {
-      type: ADD_MOVIE,
-      movieId: movieId,
-      listKey: listKey
-    };
+  // console.log("addMovieToList", movieId, listKey);
+  return {
+    type: ADD_MOVIE,
+    movieId: movieId,
+    listKey: listKey
   }
+}
   
-  export function deleteMovieFromList(movieId, listKey) {
+export function deleteMovieFromList(movieId, listKey) {
     return {
-      type: DELETE_MOVIE,
-      movieId: movieId,
-      listKey: listKey
+        type: DELETE_MOVIE,
+        movieId: movieId,
+        listKey: listKey
     };
-  }
+}

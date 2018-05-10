@@ -7,12 +7,28 @@ import {addMovieToList, deleteMovieFromList} from "../actions/actions.js"
 
 // MATERIAL UI
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+// import DropDownMenu from 'material-ui/DropDownMenu';
 import FlatButton from 'material-ui/FlatButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+// import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
+// import AutoComplete from 'material-ui/AutoComplete';
+import FontIcon from 'material-ui/FontIcon';
+
+// ICONS
+const checkIcon = <FontIcon className="material-icons">check_circle</FontIcon>;
+const emptyCheckIcon = <FontIcon className="material-icons">check_circle_outline</FontIcon>;
 
 const baseURL = "https://ghibliapi.herokuapp.com";
+
+const styles = {
+  chip: {
+    margin: 4,
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+};
 
 class RecommendedMovies extends Component {
 
@@ -20,14 +36,7 @@ class RecommendedMovies extends Component {
     super();
     this.state = {
       moviesLoaded: [],
-      // moviesOnLists: { 
-      //   "12cfb892-aac0-4c5b-94af-521852e46d6a": [{key: 1, label: "favorites"}],
-      //   "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [{key: 1, label: "favorites"}]
-      //   },
-      // allOfMyLists: {
-      //   1: "favorites",
-      //   2: "to-watch"
-      // }
+      value: 1
     }
   }
 
@@ -43,25 +52,15 @@ class RecommendedMovies extends Component {
   }
 
   handleRequestDelete = (listKey, movieId) => {
-    this.props.onDeleteChip(movieId, listKey);
+    this.props.onDeleteChip(listKey, movieId);
   };
 
   handleRequestAddMovie = (listKey, movieId) => {
-    this.props.onAddChip(movieId, listKey);
+    // console.log("handleRequestAddMovie", listKey, movieId);
+    this.props.onAddChip(listKey, movieId);
   };
 
   render () {
-
-    // const moviesAndLists = this.state.moviesLoaded.map(movie => {
-    //   let movieList = this.state.moviesOnLists[movie.id];
-    //   if (movieList !== undefined) {
-    //     movie["listsOn"] = movieList;
-    //     movie["saved"] = true;
-    //   } else {
-    //     movie["saved"] = false;
-    //   }
-    //   return movie;
-    // })
 
     const test = {}
     this.props.userMovies.forEach( e => {
@@ -72,22 +71,26 @@ class RecommendedMovies extends Component {
       var newList = movie;
       var listofkeys = test[movie.id];
       var listData = [];
+      var seenVar = false;
       if (listofkeys !== undefined) {
         listofkeys.forEach(e => {
           this.props.userLists.forEach (f => {
             if (e === f.key) {
               listData = listData.concat(f);
             }
+            if (e === 0) {
+              seenVar = true;
+            }
           })
         })
         newList.lists = listData;
+        newList.seen = seenVar;
       }
       return newList;
     })
 
     return (
       <div>
-
         {renderMovies.map(movie =>
           <Card key={movie.id}>
             <CardMedia>
@@ -97,15 +100,20 @@ class RecommendedMovies extends Component {
             <CardText>{movie.description}</CardText>
             <CardText>Release Date: {movie.release_date}</CardText>
             <CardActions>
-              <FlatButton label="Mark As Seen" primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
+              {movie.seen ?
+                <FlatButton label="Mark Not Seen" icon={checkIcon} primary={true} onClick={() => this.handleRequestDelete(0, movie.id)} />
+                :
+                <FlatButton label="Mark As Seen" icon={emptyCheckIcon} primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
+              }
               <FlatButton label="Add To List" />
               <FlatButton label="More Info" />
             </CardActions>
-            <CardText>
+            <CardText style={styles.wrapper}>
               {movie.lists ? movie.lists.map( x => 
                 <Chip
                   key={x.key}
                   onRequestDelete={() => this.handleRequestDelete(x.key, movie.id)}
+                  style={styles.chip}
                 >
                   {x.label}
                 </Chip>
@@ -117,7 +125,6 @@ class RecommendedMovies extends Component {
         </div>
     )
   }
-
 }
 
 const mapStateToProps = state => {
@@ -130,10 +137,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteChip: (movieId, listKey) => {
+    onDeleteChip: (listKey, movieId) => {
       dispatch(deleteMovieFromList(movieId, listKey))
     },
-    onAddChip: (movieId, listKey) => {
+    onAddChip: (listKey, movieId) => {
+      // console.log("onAddChip", movieId, listKey);
       dispatch(addMovieToList(movieId, listKey))
     }
   }
