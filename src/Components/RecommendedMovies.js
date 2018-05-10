@@ -20,14 +20,14 @@ class RecommendedMovies extends Component {
     super();
     this.state = {
       moviesLoaded: [],
-      moviesOnLists: { 
-        "12cfb892-aac0-4c5b-94af-521852e46d6a": [{key: 1, label: "favorites"}],
-        "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [{key: 1, label: "favorites"}]
-        },
-      allOfMyLists: {
-        1: "favorites",
-        2: "to-watch"
-      }
+      // moviesOnLists: { 
+      //   "12cfb892-aac0-4c5b-94af-521852e46d6a": [{key: 1, label: "favorites"}],
+      //   "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [{key: 1, label: "favorites"}]
+      //   },
+      // allOfMyLists: {
+      //   1: "favorites",
+      //   2: "to-watch"
+      // }
     }
   }
 
@@ -44,9 +44,6 @@ class RecommendedMovies extends Component {
 
   handleRequestDelete = (listKey, movieId) => {
     this.props.onDeleteChip(movieId, listKey);
-    // this.setState(prevState => ({
-    //   moviesOnLists: prevState.moviesOnLists[movieId].filter(j => j.key !== listKey)
-    // }))
   };
 
   handleRequestAddMovie = (listKey, movieId) => {
@@ -55,16 +52,16 @@ class RecommendedMovies extends Component {
 
   render () {
 
-    const moviesAndLists = this.state.moviesLoaded.map(movie => {
-      let movieList = this.state.moviesOnLists[movie.id];
-      if (movieList !== undefined) {
-        movie["listsOn"] = movieList;
-        movie["saved"] = true;
-      } else {
-        movie["saved"] = false;
-      }
-      return movie;
-    })
+    // const moviesAndLists = this.state.moviesLoaded.map(movie => {
+    //   let movieList = this.state.moviesOnLists[movie.id];
+    //   if (movieList !== undefined) {
+    //     movie["listsOn"] = movieList;
+    //     movie["saved"] = true;
+    //   } else {
+    //     movie["saved"] = false;
+    //   }
+    //   return movie;
+    // })
 
     const test = {}
     this.props.userMovies.forEach( e => {
@@ -87,8 +84,6 @@ class RecommendedMovies extends Component {
       }
       return newList;
     })
-
-    console.log(renderMovies);
 
     return (
       <div>
@@ -119,33 +114,6 @@ class RecommendedMovies extends Component {
             </CardText>
           </Card>
         )}
-
-        {/* {moviesAndLists.map(movie =>
-          <Card key={movie.id}>
-            <CardMedia>
-              <img src="images/nature-600-337.jpg" alt="" />
-            </CardMedia>
-            <CardTitle title={movie.title} subtitle={movie.director} />
-            <CardText>{movie.description}</CardText>
-            <CardText>Release Date: {movie.release_date}</CardText>
-            <CardActions>
-              <FlatButton label="Mark As Seen" primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
-              <FlatButton label="Add To List" />
-              <FlatButton label="More Info" />
-            </CardActions>
-            <CardText>
-              {movie.saved ? movie.listsOn.map( x => 
-                <Chip
-                  key={x.key}
-                  onRequestDelete={() => this.handleRequestDelete(x.key, movie.id)}
-                >
-                  {x.label}
-                </Chip>
-              ) : <div></div>
-              }
-            </CardText>
-          </Card>
-        )} */}
         </div>
     )
   }
@@ -170,7 +138,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-
-// export default RecommendedMovies;
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecommendedMovies);
