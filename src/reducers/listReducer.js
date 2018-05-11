@@ -1,5 +1,5 @@
 import initialState from "./initialState.js";
-import {ADD_MOVIE, DELETE_MOVIE} from "../actions/actions.js";
+import {ADD_MOVIE, DELETE_MOVIE, LOAD_MOVIES} from "../actions/actions.js";
 
 function listReducer(state = initialState, action) {
   switch (action.type) {
@@ -40,15 +40,15 @@ function listReducer(state = initialState, action) {
     case DELETE_MOVIE:
 
       // FIND MOVIE IN LIST OF USER MOVIES
-      var flag = false;
+      var flagA = false;
       state.movies.forEach ( (movie) => {
         if (movie.id === action.movieId) {
-          flag = true;
+          flagA = true;
         }
       })
 
       // UPDATE MOVIE LIST KEYS IF FOUND
-      if ( flag === true ) {
+      if ( flagA === true ) {
         return Object.assign( {}, state, {
           movies: state.movies.map( (movie) => {
             if ( movie.id === action.movieId && movie.listKeys.includes(action.listKey) ) {
@@ -60,24 +60,19 @@ function listReducer(state = initialState, action) {
             }
           })
         })
-
-      // ADD MOVIE AND LIST KEYS IF NOT FOUND
+      } else {
+        break;
       }
 
-      // return Object.assign({}, state, {
-      //   movies: state.movies.map((movie, movieId, listKey) => {
-      //     if (movie.id === movieId && movie.listKeys.includes(listKey)) {
-      //       let newMovieEntry = movie;
-      //       movie.listKeys = movie.listKeys.filter(key => key !== listKey);
-      //       return newMovieEntry;
-      //     } else {
-      //       return movie;
-      //     }
-      //   })
-      // })
 
-  default:
-    return state
+    case LOAD_MOVIES:
+      return Object.assign( {}, state, {
+        display: state.movies.filter( (movie) => movie.listKeys.includes(action.listKey) )
+      })
+
+
+    default:
+      return state
   }
 }
 

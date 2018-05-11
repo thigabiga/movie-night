@@ -7,12 +7,14 @@ import {addMovieToList, deleteMovieFromList} from "../actions/actions.js"
 
 // MATERIAL UI
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-// import DropDownMenu from 'material-ui/DropDownMenu';
 import FlatButton from 'material-ui/FlatButton';
-// import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
-// import AutoComplete from 'material-ui/AutoComplete';
 import FontIcon from 'material-ui/FontIcon';
+
+// ADD LATER
+// import AutoComplete from 'material-ui/AutoComplete';
+// import MenuItem from 'material-ui/MenuItem';
+// import DropDownMenu from 'material-ui/DropDownMenu';
 
 // ICONS
 const checkIcon = <FontIcon className="material-icons">check_circle</FontIcon>;
@@ -36,7 +38,6 @@ class RecommendedMovies extends Component {
     super();
     this.state = {
       moviesLoaded: [],
-      value: 1
     }
   }
 
@@ -56,7 +57,6 @@ class RecommendedMovies extends Component {
   };
 
   handleRequestAddMovie = (listKey, movieId) => {
-    // console.log("handleRequestAddMovie", listKey, movieId);
     this.props.onAddChip(listKey, movieId);
   };
 
@@ -131,7 +131,6 @@ const mapStateToProps = state => {
   return {
     userMovies: state.listReducer.movies,
     userLists: state.listReducer.lists
-    // currentDisplay: state.display
   }
 }
 
@@ -141,7 +140,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(deleteMovieFromList(movieId, listKey))
     },
     onAddChip: (listKey, movieId) => {
-      // console.log("onAddChip", movieId, listKey);
       dispatch(addMovieToList(movieId, listKey))
     }
   }

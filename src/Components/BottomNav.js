@@ -21,7 +21,7 @@ class BottomNav extends Component {
   render() {
     return (
       <Paper zDepth={1}>
-        <BottomNavigation selectedIndex={this.state.selectedIndex}>
+        <BottomNavigation selectedIndex={this.state.selectedIndex} >
           <Link to="/">
             <BottomNavigationItem
               label="Home"
