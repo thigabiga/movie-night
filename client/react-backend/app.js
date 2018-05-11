@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // erin's routes
 app.use(require(__dirname + "/routes/index"))
 app.use(require(__dirname + "/routes/browse"));
+app.use(require(__dirname + "/routes/library"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

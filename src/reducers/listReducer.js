@@ -1,5 +1,5 @@
 import initialState from "./initialState.js";
-import {ADD_MOVIE, DELETE_MOVIE, LOAD_MOVIES} from "../actions/actions.js";
+import {ADD_MOVIE, DELETE_MOVIE, LOAD_MOVIES, TOGGLE_SEEN, TOGGLE_DELETE} from "../actions/actions.js";
 
 function listReducer(state = initialState, action) {
   switch (action.type) {
@@ -39,6 +39,7 @@ function listReducer(state = initialState, action) {
 
     case DELETE_MOVIE:
 
+      console.log("delete");
       // FIND MOVIE IN LIST OF USER MOVIES
       var flagA = false;
       state.movies.forEach ( (movie) => {
@@ -67,9 +68,63 @@ function listReducer(state = initialState, action) {
 
     case LOAD_MOVIES:
       return Object.assign( {}, state, {
-        display: state.movies.filter( (movie) => movie.listKeys.includes(action.listKey) )
+        display: state.movies.filter( (movie) => movie.listKeys.includes(action.listKey) ),
+        displayListKey: action.listKey
       })
 
+
+    case TOGGLE_SEEN:
+    console.log("toggle");
+    // action.seen, action.movieid
+
+      if (!action.seen) {
+        console.log("not seen", action.seen);
+        return Object.assign( {}, state, {
+          movies: state.movies.map( (movie) => {
+            if ( movie.id === action.movieId ) {
+              let newMovieEntry = movie;
+              newMovieEntry.listKeys = movie.listKeys.filter( key => key !== 0 );
+              return newMovieEntry;
+            } else {
+              return movie;
+            }
+          }),
+          display: state.display.map( (movie) => {
+            if ( movie.id === action.movieId ) {
+              let newMovieEntry = movie;
+              newMovieEntry.seen = true;
+              return newMovieEntry;
+            } else {
+              return movie;
+            }
+          })
+        })
+      } else {
+        console.log("seen", action.seen);
+        return Object.assign( {}, state, {
+          movies: state.movies.map( (movie) => {
+            if ( movie.id === action.movieId ) {
+              let newMovieEntry = movie;
+              newMovieEntry.listKeys = movie.listKeys.concat(0);
+              return newMovieEntry;
+            } else {
+              return movie;
+            }
+          }),
+          display: state.display.map( (movie) => {
+            if ( movie.id === action.movieId ) {
+              let newMovieEntry = movie;
+              newMovieEntry.seen = false;
+              return newMovieEntry;
+              } else {
+                return movie;
+              }
+            })
+          })
+        }
+
+      case TOGGLE_DELETE:
+        console.log("toggle seen");
 
     default:
       return state
