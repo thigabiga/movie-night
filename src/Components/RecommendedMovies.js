@@ -11,14 +11,17 @@ import FlatButton from 'material-ui/FlatButton';
 import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 // ADD LATER
 // import AutoComplete from 'material-ui/AutoComplete';
-// import MenuItem from 'material-ui/MenuItem';
 // import DropDownMenu from 'material-ui/DropDownMenu';
 
 // ICONS
 const checkIcon = <FontIcon className="material-icons">check_circle</FontIcon>;
 const emptyCheckIcon = <FontIcon className="material-icons">check_circle_outline</FontIcon>;
+const addCircleIcon = <FontIcon className="material-icons">add_circle_outline</FontIcon>;
 
 const baseURL = "https://ghibliapi.herokuapp.com";
 
@@ -29,6 +32,9 @@ const styles = {
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  customWidth: {
+    width: 200,
   },
 };
 
@@ -62,31 +68,65 @@ class RecommendedMovies extends Component {
 
   render () {
 
-    const test = {}
-    this.props.userMovies.forEach( e => {
-      test[e.id] = e.listKeys;
-    })
+    // const test = {}
+    // this.props.userMovies.forEach( movie => {
+    //   test[movie.id] = movie.listKeys;
+    // })
   
-    const renderMovies = this.state.moviesLoaded.map(movie => {
-      var newList = movie;
-      var listofkeys = test[movie.id];
-      var listData = [];
-      var seenVar = false;
-      if (listofkeys !== undefined) {
-        listofkeys.forEach(e => {
-          this.props.userLists.forEach (f => {
-            if (e === f.key) {
-              listData = listData.concat(f);
-            }
-            if (e === 0) {
-              seenVar = true;
-            }
-          })
-        })
-        newList.lists = listData;
-        newList.seen = seenVar;
-      }
-      return newList;
+    // const renderMovies = this.state.moviesLoaded.map(movie => {
+    //   var newList = movie;
+    //   var listofkeys = test[movie.id];
+    //   var listData = [];
+    //   var seenVar = false;
+    //   if (listofkeys !== undefined) {
+    //     listofkeys.forEach(e => {
+    //       this.props.userLists.forEach (f => {
+    //         if (e === f.key) {
+    //           listData = listData.concat(f);
+    //         }
+    //         if (e === 0) {
+    //           seenVar = true;
+    //         }
+    //       })
+    //     })
+    //     newList.lists = listData;
+    //     newList.seen = seenVar;
+    //   }
+    //   return newList;
+    // })
+
+    const renderMovies = this.state.moviesLoaded.map( movie => {
+      var newMovie = movie;
+      var onLists = [];
+      var notOnLists = [];
+      var allLists = [];
+
+      this.props.userMovies.forEach( userMovie => {
+        if ( userMovie.id === movie.id && userMovie.listKeys !== undefined ) {
+          newMovie.listKeys = userMovie.listKeys;
+          if ( newMovie.listKeys.includes(0) ) {
+            newMovie.seen = true;
+          } else {
+            newMovie.seen = false;
+          }
+        }
+      })
+
+      this.props.userLists.forEach( list => {
+        if ( newMovie.listKeys !== undefined && newMovie.listKeys.includes(list.key) ) {
+          let newList = list;
+          onLists = onLists.concat(newList);
+          allLists = allLists.concat(newList);
+        } else {
+          let newList = list;
+          notOnLists = notOnLists.concat(newList);
+          allLists = allLists.concat(newList);
+        }
+      })
+      newMovie.listsOn = onLists;
+      newMovie.listsNotOn = notOnLists;
+      newMovie.listsAll = allLists;
+      return newMovie;
     })
 
     return (
@@ -105,21 +145,35 @@ class RecommendedMovies extends Component {
                 :
                 <FlatButton label="Mark As Seen" icon={emptyCheckIcon} primary={true} onClick={() => this.handleRequestAddMovie(0, movie.id)} />
               }
-              <FlatButton label="Add To List" />
-              <FlatButton label="More Info" />
+
+              <IconMenu
+                iconButtonElement={<FlatButton label="Add to List" icon={addCircleIcon} primary={true} />}
+                open={this.state.openMenu}
+                onRequestChange={this.handleOnRequestChange}
+              >
+              {movie.listsNotOn.map( list => 
+                  <MenuItem 
+                    key={list.key} 
+                    value={list.label} 
+                    primaryText={list.label} 
+                    onClick={() => this.handleRequestAddMovie(list.key, movie.id)}
+                  />
+                )}
+              </IconMenu>
+
             </CardActions>
-            <CardText style={styles.wrapper}>
-              {movie.lists ? movie.lists.map( x => 
-                <Chip
-                  key={x.key}
-                  onRequestDelete={() => this.handleRequestDelete(x.key, movie.id)}
+
+            <CardActions style={styles.wrapper}>
+              {movie.listsOn.map( list =>
+                <Chip 
+                  key={list.key}
+                  onRequestDelete={() => this.handleRequestDelete(list.key, movie.id)}
                   style={styles.chip}
-                >
-                  {x.label}
+                >{list.label}
                 </Chip>
-              ) : <div></div>
-              }
-            </CardText>
+              )}
+            </CardActions>
+
           </Card>
         )}
         </div>
