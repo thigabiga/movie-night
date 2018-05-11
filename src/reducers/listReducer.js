@@ -84,16 +84,7 @@ function listReducer(state = initialState, action) {
             } else {
               return movie;
             }
-          }),
-          // display: state.display.map( (movie) => {
-          //   if ( movie.id === action.movieId ) {
-          //     let newMovieEntry = movie;
-          //     newMovieEntry.seen = true;
-          //     return newMovieEntry;
-          //   } else {
-          //     return movie;
-          //   }
-          // })
+          })
         })
       } else {
           return Object.assign( {}, state, {
@@ -105,21 +96,23 @@ function listReducer(state = initialState, action) {
               } else {
                 return movie;
               }
-            }),
-          // display: state.display.map( (movie) => {
-          //   if ( movie.id === action.movieId ) {
-          //     let newMovieEntry = movie;
-          //     newMovieEntry.seen = false;
-          //     return newMovieEntry;
-          //     } else {
-          //       return movie;
-          //     }
-          //   })
+            })
           })
         }
 
       case TOGGLE_DELETE:
         console.log("toggle delete");
+        return Object.assign( {}, state, {
+          movies: state.movies.map( (movie) => {
+            if ( movie.id === action.movieId ) {
+              let newMovieEntry = movie;
+              newMovieEntry.listKeys = movie.listKeys.filter(key => key !== action.listKey );
+              return newMovieEntry;
+            } else {
+              return movie;
+            }
+          })
+        })
 
     default:
       return state
