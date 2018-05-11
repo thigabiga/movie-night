@@ -74,33 +74,7 @@ function listReducer(state = initialState, action) {
 
 
     case TOGGLE_SEEN:
-    console.log("toggle");
-    // action.seen, action.movieid
-
       if (!action.seen) {
-        console.log("not seen", action.seen);
-        return Object.assign( {}, state, {
-          movies: state.movies.map( (movie) => {
-            if ( movie.id === action.movieId ) {
-              let newMovieEntry = movie;
-              newMovieEntry.listKeys = movie.listKeys.filter( key => key !== 0 );
-              return newMovieEntry;
-            } else {
-              return movie;
-            }
-          }),
-          display: state.display.map( (movie) => {
-            if ( movie.id === action.movieId ) {
-              let newMovieEntry = movie;
-              newMovieEntry.seen = true;
-              return newMovieEntry;
-            } else {
-              return movie;
-            }
-          })
-        })
-      } else {
-        console.log("seen", action.seen);
         return Object.assign( {}, state, {
           movies: state.movies.map( (movie) => {
             if ( movie.id === action.movieId ) {
@@ -111,20 +85,41 @@ function listReducer(state = initialState, action) {
               return movie;
             }
           }),
-          display: state.display.map( (movie) => {
-            if ( movie.id === action.movieId ) {
-              let newMovieEntry = movie;
-              newMovieEntry.seen = false;
-              return newMovieEntry;
+          // display: state.display.map( (movie) => {
+          //   if ( movie.id === action.movieId ) {
+          //     let newMovieEntry = movie;
+          //     newMovieEntry.seen = true;
+          //     return newMovieEntry;
+          //   } else {
+          //     return movie;
+          //   }
+          // })
+        })
+      } else {
+          return Object.assign( {}, state, {
+            movies: state.movies.map( (movie) => {
+              if ( movie.id === action.movieId ) {
+                let newMovieEntry = movie;
+                newMovieEntry.listKeys = movie.listKeys.filter( key => key !== 0 );
+                return newMovieEntry;
               } else {
                 return movie;
               }
-            })
+            }),
+          // display: state.display.map( (movie) => {
+          //   if ( movie.id === action.movieId ) {
+          //     let newMovieEntry = movie;
+          //     newMovieEntry.seen = false;
+          //     return newMovieEntry;
+          //     } else {
+          //       return movie;
+          //     }
+          //   })
           })
         }
 
       case TOGGLE_DELETE:
-        console.log("toggle seen");
+        console.log("toggle delete");
 
     default:
       return state

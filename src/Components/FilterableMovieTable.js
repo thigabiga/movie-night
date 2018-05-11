@@ -73,7 +73,6 @@ class FilterableMovieTable extends Component {
       this.props.userMovies.forEach( e => {
         if ( e.id === movie.id ) {
           newMovie.listKeys = e.listKeys;
-          // newMovie.title = e.title;
           if ( movie.listKeys.includes(0) ) {
             newMovie.seen = true;
           } else {
@@ -90,27 +89,6 @@ class FilterableMovieTable extends Component {
     })
 
     const reRenderMovies = renderMovies.filter( movie => movie.display );
-
-    // const renderMovies = this.props.displayMovies.map( movie => {
-    //   let newMovie = movie;
-    //   this.state.moviesLoaded.forEach( e => {
-    //     if ( e.id === movie.id && movie.listKeys.includes(0) ) {
-    //       newMovie.seen = true;
-    //       newMovie.title = e.title;
-    //     } else if ( e.id === movie.id && !movie.listKeys.includes(0) ) {
-    //       newMovie.seen = false;
-    //       newMovie.title = e.title;
-    //     }
-    //   })
-    //   return newMovie;
-    // })
-
-    // var displayTitle = "";
-    // this.props.userLists.forEach( list => {
-    //   if (list.key === this.props.displayListKey) {
-    //     displayTitle = list.label;
-    //   }
-    // })
 
     return (
       <div>
@@ -162,7 +140,9 @@ class FilterableMovieTable extends Component {
             {reRenderMovies.map( movie =>
               <TableRow key={movie.id} >
                 <TableRowColumn>
-                  <a href="www.google.com" target="_blank">{movie.title}</a>
+                  {/* <a href="www.google.com" target="_blank"> */}
+                  {movie.title}
+                  {/* </a> */}
                 </TableRowColumn>
                 <TableRowColumn>
                   {movie.seen ? 
@@ -201,7 +181,6 @@ const mapStateToProps = state => {
   return {
     userMovies: state.listReducer.movies,
     userLists: state.listReducer.lists,
-    displayMovies: state.listReducer.display,
     displayListKey: state.listReducer.displayListKey,
   }
 }
