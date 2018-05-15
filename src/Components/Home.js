@@ -15,7 +15,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <AppBar title="Movie Night" showMenuIconButton={false} />
+        <AppBar title="Studio Ghibli Movie Night" showMenuIconButton={false} />
         <Card>
           <CardHeader
             title="Erin Thigpen"
@@ -30,7 +30,7 @@ class Home extends Component {
         <Card>
         <CardHeader title="Friends" />
           <List>
-            <ListItem primaryText="Hermione Grange" />
+            <ListItem primaryText="Hermione Granger" />
             <ListItem primaryText="Ron Weasley" />
           </List>
         </Card>
