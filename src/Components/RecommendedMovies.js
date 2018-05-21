@@ -16,7 +16,6 @@ import MenuItem from 'material-ui/MenuItem';
 
 // ADD LATER
 // import AutoComplete from 'material-ui/AutoComplete';
-// import DropDownMenu from 'material-ui/DropDownMenu';
 
 // ICONS
 const checkIcon = <FontIcon className="material-icons">check_circle</FontIcon>;
@@ -67,33 +66,6 @@ class RecommendedMovies extends Component {
   };
 
   render () {
-
-    // const test = {}
-    // this.props.userMovies.forEach( movie => {
-    //   test[movie.id] = movie.listKeys;
-    // })
-  
-    // const renderMovies = this.state.moviesLoaded.map(movie => {
-    //   var newList = movie;
-    //   var listofkeys = test[movie.id];
-    //   var listData = [];
-    //   var seenVar = false;
-    //   if (listofkeys !== undefined) {
-    //     listofkeys.forEach(e => {
-    //       this.props.userLists.forEach (f => {
-    //         if (e === f.key) {
-    //           listData = listData.concat(f);
-    //         }
-    //         if (e === 0) {
-    //           seenVar = true;
-    //         }
-    //       })
-    //     })
-    //     newList.lists = listData;
-    //     newList.seen = seenVar;
-    //   }
-    //   return newList;
-    // })
 
     const renderMovies = this.state.moviesLoaded.map( movie => {
       var newMovie = movie;
